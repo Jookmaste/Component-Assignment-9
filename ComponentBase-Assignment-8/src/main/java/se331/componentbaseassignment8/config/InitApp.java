@@ -1,6 +1,6 @@
 package se331.componentbaseassignment8.config;
 
-// import jakarta.transaction.Transactional;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.context.event.ApplicationReadyEvent;
 import org.springframework.context.ApplicationListener;
@@ -17,7 +17,7 @@ public class InitApp implements ApplicationListener<ApplicationReadyEvent> {
     final OrganizerRepository organizerRepository;
 
     @Override
-//     @Transactional
+    @Transactional
     public void onApplicationEvent(ApplicationReadyEvent applicationReadyEvent) {
         Organizer org1, org2, org3;
         org1 = organizerRepository.save(Organizer.builder()
