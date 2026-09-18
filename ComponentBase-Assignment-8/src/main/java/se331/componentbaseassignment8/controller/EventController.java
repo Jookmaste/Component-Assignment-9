@@ -14,6 +14,7 @@ import org.springframework.web.server.ResponseStatusException;
 
 import se331.componentbaseassignment8.entity.Event;
 import se331.componentbaseassignment8.service.EventService;
+import se331.componentbaseassignment8.util.LabMapper;
 import lombok.RequiredArgsConstructor;
 
 @RestController
@@ -21,6 +22,7 @@ import lombok.RequiredArgsConstructor;
 public class EventController {
 
     final EventService eventService;
+
     @GetMapping("/events")
     public ResponseEntity<?> getEventLists(
         @RequestParam(value = "_limit", required = false)Integer perPage, 
@@ -29,11 +31,12 @@ public class EventController {
                 HttpHeaders responseHeaders = new HttpHeaders();
                 responseHeaders.set("x-total-count", 
                 String.valueOf(pageOutput.getTotalElements()));
-                try {
-                    return ResponseEntity.ok().headers(responseHeaders).body(pageOutput.getContent());
-                } catch (IndexOutOfBoundsException e) {
-                    return ResponseEntity.ok().headers(responseHeaders).body(pageOutput.getContent());
-                }
+
+            return new ResponseEntity<>(
+                LabMapper.INSTANCE.getEventDto(pageOutput.getContent()),
+                responseHeaders,
+                HttpStatus.OK
+            );
             
         }
 
@@ -41,7 +44,7 @@ public class EventController {
     public ResponseEntity<?> getEvent(@PathVariable("id") Long id) {
         Event output = eventService.getEvent(id);
         if (output != null) {
-            return ResponseEntity.ok(output);
+            return ResponseEntity.ok(LabMapper.INSTANCE.getEventDto(output));
         } else {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "The given id is not found");
         }
@@ -50,6 +53,6 @@ public class EventController {
     @PostMapping("/events")
     public ResponseEntity<?> addEvent(@RequestBody Event event) {
         Event output = eventService.save(event);
-        return ResponseEntity.ok(output);
+        return ResponseEntity.ok(LabMapper.INSTANCE.getEventDto(output));
     }
 }
