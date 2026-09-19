@@ -2,6 +2,7 @@ package se331.componentbaseassignment8.entity;
 
 import jakarta.persistence.*;
 import lombok.*;
+import java.util.ArrayList;
 import java.util.List;
 
 @Data
@@ -20,5 +21,6 @@ public class Participant {
     String telNo;
 
     @ManyToMany
-    List<Event> eventHistories;
+    @Builder.Default
+    List<Event> eventHistory = new ArrayList<>();
 }
