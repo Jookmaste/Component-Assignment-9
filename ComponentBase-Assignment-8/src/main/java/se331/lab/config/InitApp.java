@@ -27,24 +27,24 @@ public class InitApp implements ApplicationListener<ApplicationReadyEvent> {
     public void onApplicationEvent (ApplicationReadyEvent applicationReadyEvent) {
         Participant part1, part2, part3, part4, part5;
         part1 = participantRepository.save(Participant.builder()
-                .name("Krittameth")
-                .telNo("098672156438")
+                .name("participant1")
+                .telNo("0123456789")
                 .build());
         part2 = participantRepository.save(Participant.builder()
-                .name("Tansuwan")
-                .telNo("098672125638")
+                .name("participant2")
+                .telNo("0123456789")
                 .build());
         part3 = participantRepository.save(Participant.builder()
-                .name("Apitawan")
-                .telNo("098672115638")
+                .name("participant3")
+                .telNo("0123456789")
                 .build());
         part4 = participantRepository.save(Participant.builder()
-                .name("Chirakunasin")
-                .telNo("098672155638")
+                .name("participant4")
+                .telNo("0123456789")
                 .build());
         part5 = participantRepository.save(Participant.builder()
-                .name("Nattikorn")
-                .telNo("0986721325638")
+                .name("participant5")
+                .telNo("0123456789")
                 .build());
         List<Participant> participants = new ArrayList<>();
         participants.add(part1);
