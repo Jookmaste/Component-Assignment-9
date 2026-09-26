@@ -4,13 +4,13 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
-import org.springframework.stereotype.Repository;
+import org.springframework.stereotype.Service;
 import se331.lab.dao.OrganizerDao;
 import se331.lab.entity.Organizer;
 
 import java.util.List;
 
-@Repository
+@Service
 @RequiredArgsConstructor
 public class OrganizerServiceImpl implements OrganizerService {
     final OrganizerDao organizerDao;
@@ -23,5 +23,11 @@ public class OrganizerServiceImpl implements OrganizerService {
     @Override
     public Page<Organizer> getOrganizers(Integer perPage, Integer page) {
         return organizerDao.getOrganizers(PageRequest.of(page, perPage));
+    }
+
+    @Override
+    public Organizer save(Organizer organizer) {
+        organizer.setId(null);
+        return organizerDao.save(organizer);
     }
 }
